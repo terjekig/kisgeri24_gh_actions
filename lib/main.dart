@@ -7,8 +7,9 @@ import 'package:kisgeri24/constants.dart';
 import 'package:kisgeri24/firebase_options.dart';
 import 'package:kisgeri24/logging.dart';
 import 'package:kisgeri24/model/authentication_bloc.dart';
+import 'package:kisgeri24/screens/overview/overview_screen.dart';
 import 'package:kisgeri24/services/firebase_service.dart';
-import 'package:kisgeri24/ui/auth/launcherScreen/launcher_screen.dart';
+import 'package:kisgeri24/ui/figma_design.dart' as kisgeri_design;
 import 'package:kisgeri24/ui/loading_cubit.dart';
 import 'package:flutter/foundation.dart';
 
@@ -54,6 +55,9 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
       }
       setState(() {
         setUpEmulatorIfNeeded();
+        FirebaseSingletonProvider.instance;
+        logger.i(
+            'Firebase init succeeded, instance: ${FirebaseSingletonProvider.instance.toString()}');
         _initialized = true;
       });
     } catch (e) {
@@ -108,29 +112,20 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
     return MaterialApp(
         theme: ThemeData(
-          brightness: Brightness.light,
-          scaffoldBackgroundColor: Colors.white,
+          brightness: Brightness.dark,
+          scaffoldBackgroundColor: kisgeri_design.Figma.colors.backgroundColor,
           appBarTheme:
-              const AppBarTheme(systemOverlayStyle: SystemUiOverlayStyle.dark),
-          snackBarTheme: const SnackBarThemeData(
-              contentTextStyle: TextStyle(color: Colors.white)),
+              const AppBarTheme(systemOverlayStyle: SystemUiOverlayStyle.light),
+          snackBarTheme: SnackBarThemeData(
+              contentTextStyle:
+                  TextStyle(color: kisgeri_design.Figma.colors.secondaryColor)),
           colorScheme: ColorScheme.fromSwatch().copyWith(
-              secondary: const Color(colorPrimary),
-              brightness: Brightness.light),
+              secondary: kisgeri_design.Figma.colors.primaryColor,
+              brightness: Brightness.dark),
         ),
-        darkTheme: ThemeData(
-            brightness: Brightness.dark,
-            scaffoldBackgroundColor: Colors.grey.shade800,
-            appBarTheme: const AppBarTheme(
-                systemOverlayStyle: SystemUiOverlayStyle.light),
-            snackBarTheme: const SnackBarThemeData(
-                contentTextStyle: TextStyle(color: Colors.white)),
-            colorScheme: ColorScheme.fromSwatch().copyWith(
-                secondary: const Color(colorPrimary),
-                brightness: Brightness.dark)),
         debugShowCheckedModeBanner: const bool.fromEnvironment("DEBUG_MODE"),
         color: const Color(colorPrimary),
-        home: const LauncherScreen());
+        home: const OverviewScreen());
   }
 
   @override
