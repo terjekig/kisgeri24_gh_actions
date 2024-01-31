@@ -1,7 +1,7 @@
-import 'dart:convert';
+import "dart:convert";
 
-import 'package:kisgeri24/data/dto/challenge_view.dart';
-import 'package:kisgeri24/data/models/challenge.dart';
+import "package:kisgeri24/data/dto/challenge_view.dart";
+import "package:kisgeri24/data/models/challenge.dart";
 
 class ChallengeToChallengeViewConverter
     extends Converter<Challenge, ChallengeView> {
