@@ -1,0 +1,18 @@
+name: Comment-triggered workflow
+on: 
+    issue_comment:
+        types: [created, edited]
+jobs:
+  pr_commented:
+    name: PR comment
+    if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '/trigger')}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Echo
+        run: |
+              echo "PR title: ${{ github.event.issue.title }}"
+              echo "PR number: ${{ github.event.issue.number }}"
+              echo "Comment: ${{ github.event.comment.body }}"
