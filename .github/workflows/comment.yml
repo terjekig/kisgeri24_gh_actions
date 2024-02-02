@@ -5,7 +5,7 @@ on:
 jobs:
   pr_commented:
     name: PR comment
-    if: ${{ github.event.issue.pull_request }}
+    if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '/trigger')}}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
